@@ -56,6 +56,67 @@ document.querySelectorAll("[data-year]").forEach((year) => {
 
 const contactForm = document.querySelector("#contact-form");
 if (contactForm) {
+  const terminalFields = [...contactForm.querySelectorAll(".terminal-input, .terminal-select, .terminal-textarea")];
+  const positionBlockCaret = (field) => {
+    if (!field.matches(".terminal-input, .terminal-textarea")) return;
+    const line = field.closest(".terminal-input-line");
+    const blockCaret = line?.querySelector(".terminal-block-caret");
+    if (!line || !blockCaret) return;
+    const styles = window.getComputedStyle(field);
+    const fieldRect = field.getBoundingClientRect();
+    const mirror = document.createElement("div");
+    const marker = document.createElement("span");
+    const beforeCaret = field.value.slice(0, field.selectionStart ?? field.value.length);
+    mirror.style.position = "fixed";
+    mirror.style.left = `${fieldRect.left - field.scrollLeft}px`;
+    mirror.style.top = `${fieldRect.top - field.scrollTop}px`;
+    mirror.style.width = `${field.clientWidth}px`;
+    mirror.style.height = `${field.clientHeight}px`;
+    mirror.style.boxSizing = "border-box";
+    mirror.style.padding = styles.padding;
+    mirror.style.border = "0";
+    mirror.style.font = styles.font;
+    mirror.style.letterSpacing = styles.letterSpacing;
+    mirror.style.lineHeight = styles.lineHeight;
+    mirror.style.whiteSpace = field.matches("textarea") ? "pre-wrap" : "pre";
+    mirror.style.wordBreak = "break-word";
+    mirror.style.overflowWrap = "break-word";
+    mirror.style.visibility = "hidden";
+    mirror.style.pointerEvents = "none";
+    mirror.textContent = beforeCaret || "\u200b";
+    marker.textContent = "\u200b";
+    mirror.append(marker);
+    document.body.append(mirror);
+    const markerRect = marker.getBoundingClientRect();
+    blockCaret.style.left = `${field.offsetLeft + markerRect.left - fieldRect.left}px`;
+    blockCaret.style.top = `${field.offsetTop + markerRect.top - fieldRect.top}px`;
+    blockCaret.style.height = `${parseFloat(styles.lineHeight) || 20}px`;
+    blockCaret.classList.toggle("is-empty", beforeCaret.length === 0);
+    mirror.remove();
+  };
+  terminalFields.forEach((field, index) => {
+    const line = field.closest(".terminal-input-line");
+    if (line) {
+      line.addEventListener("click", () => field.focus());
+    }
+    ["input", "click", "keyup", "select", "focus"].forEach((eventName) => {
+      field.addEventListener(eventName, () => requestAnimationFrame(() => positionBlockCaret(field)));
+    });
+    field.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && field.matches("input, select") && !event.shiftKey) {
+        event.preventDefault();
+        terminalFields[index + 1]?.focus();
+      }
+      if (event.key === "Enter" && field.matches("textarea") && (event.ctrlKey || event.metaKey)) {
+        event.preventDefault();
+        contactForm.requestSubmit();
+      }
+    });
+  });
+  window.addEventListener("resize", () => {
+    const activeField = document.activeElement;
+    if (activeField?.matches(".terminal-input, .terminal-textarea")) positionBlockCaret(activeField);
+  });
   contactForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const formData = new FormData(contactForm);
