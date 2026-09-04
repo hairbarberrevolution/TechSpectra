@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Contatta TechSpectra per parlare del tuo prossimo sito web.">
+  <title>Contatti - TechSpectra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="index.html" aria-label="TechSpectra home">Tech<span>Spectra</span></a>
+    <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false"><span></span><span></span><span></span><span class="sr-only">Apri menu</span></button>
+    <nav id="site-nav" class="site-nav" aria-label="Navigazione principale"><a href="index.html">Home</a><a href="servizi.html">Servizi</a><a href="prezzi.html">Prezzi</a><a class="nav-cta active-cta" href="contatti.html">Parliamone <span>↗</span></a></nav>
+  </header>
+
+  <main>
+    <section class="contact-layout container">
+      <div class="contact-intro">
+        <p class="hero-kicker"><span class="status-dot"></span> Primo contatto</p>
+        <h1>Mettiamo a fuoco<br><em>la tua idea.</em></h1>
+        <p>Raccontaci dove vuoi arrivare. Non serve avere già tutto chiaro: bastano il contesto e una prima direzione.</p>
+        <div class="contact-aside"><span class="section-index">/Rispondiamo su WhatsApp</span><p>Il modo più semplice per iniziare è una conversazione diretta, senza call obbligatorie o moduli infiniti.</p></div>
+      </div>
+      <div class="contact-form-wrap">
+        <div class="form-progress"><span>01</span><i></i><span>02</span><i></i><span>03</span></div>
+        <form id="contact-form">
+          <div class="form-field"><label for="name">Come ti chiami? <b>*</b></label><input id="name" name="name" type="text" autocomplete="name" required></div>
+          <div class="form-field"><label for="contact">Email o telefono <span>(opzionale)</span></label><input id="contact" name="contact" type="text" autocomplete="email"></div>
+          <div class="form-field"><label for="request">Di cosa hai bisogno? <b>*</b></label><select id="request" name="request" required><option value="" disabled selected>Scegli una voce</option><option value="Un sito vetrina">Un sito vetrina</option><option value="Un sito con funzionalità dinamiche">Un sito con funzionalità dinamiche</option><option value="Un restyling">Un restyling</option><option value="Non lo so ancora">Non lo so ancora</option></select></div>
+          <div class="form-field"><label for="message">Raccontaci qualcosa in più <b>*</b></label><textarea id="message" name="message" rows="5" required></textarea></div>
+          <button class="button button-primary form-submit" type="submit">Apri WhatsApp <span>↗</span></button>
+          <p class="form-note">Premendo il pulsante si aprirà WhatsApp con un messaggio già compilato. Nessun dato viene inviato a un server.</p>
+          <p class="form-feedback" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer container"><a class="wordmark" href="index.html">Tech<span>Spectra</span></a><p>Web development, senza rumore.</p><p>© <span data-year>2026</span> TechSpectra</p></footer>
+  <script src="js/script.js"></script>
+</body>
+</html>
