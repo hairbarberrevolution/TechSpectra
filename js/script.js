@@ -52,29 +52,17 @@ if ("IntersectionObserver" in window) {
 }
 
 const finePointer = window.matchMedia("(pointer: fine)");
-let customCursor;
 if (finePointer.matches) {
-  customCursor = document.createElement("div");
-  customCursor.className = "custom-cursor";
-  customCursor.setAttribute("aria-hidden", "true");
-  document.body.append(customCursor);
-  document.body.classList.add("custom-cursor-enabled");
   window.addEventListener("pointermove", (event) => {
     root.style.setProperty("--pointer-x", `${event.clientX}px`);
     root.style.setProperty("--pointer-y", `${event.clientY}px`);
-    customCursor.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
   }, { passive: true });
-  document.querySelectorAll("a, button, select, .portfolio-visual, .problem-card, .solution-card").forEach((target) => {
-    target.addEventListener("pointerenter", () => customCursor.classList.add("is-hovering"));
-    target.addEventListener("pointerleave", () => customCursor.classList.remove("is-hovering"));
-  });
 }
 
 const updateScrollSignal = () => {
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
   const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
   root.style.setProperty("--scroll-progress", Math.min(1, Math.max(0, progress)));
-  root.style.setProperty("--hero-scroll", `${Math.min(window.scrollY, 700) * -0.045}px`);
 };
 window.addEventListener("scroll", updateScrollSignal, { passive: true });
 updateScrollSignal();
@@ -96,38 +84,6 @@ if (finePointer.matches) {
       card.style.removeProperty("--tilt-x");
       card.style.removeProperty("--tilt-y");
     });
-  });
-}
-
-document.querySelectorAll(".button, .nav-cta").forEach((button) => {
-  if (!finePointer.matches) return;
-  button.addEventListener("pointermove", (event) => {
-    const bounds = button.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    button.style.setProperty("--mag-x", `${x * 7}px`);
-    button.style.setProperty("--mag-y", `${y * 5}px`);
-    button.classList.add("magnetic-active");
-  });
-  button.addEventListener("pointerleave", () => {
-    button.classList.remove("magnetic-active");
-    button.style.removeProperty("--mag-x");
-    button.style.removeProperty("--mag-y");
-  });
-});
-
-const heroArt = document.querySelector(".hero-art");
-if (heroArt && finePointer.matches) {
-  heroArt.addEventListener("pointermove", (event) => {
-    const bounds = heroArt.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    heroArt.style.setProperty("--hero-rotate-x", `${y * -3}deg`);
-    heroArt.style.setProperty("--hero-rotate-y", `${x * 4}deg`);
-  });
-  heroArt.addEventListener("pointerleave", () => {
-    heroArt.style.removeProperty("--hero-rotate-x");
-    heroArt.style.removeProperty("--hero-rotate-y");
   });
 }
 

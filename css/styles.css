@@ -254,13 +254,3 @@ body:after{content:"";position:fixed;left:0;top:0;width:calc(var(--scroll-progre
 .portfolio-visual:hover .reveal-action span{transform:translate(5px,-5px)}
 @media(max-width:800px){.portfolio-reveal-cover{padding:23px}.portfolio-visual:hover .portfolio-reveal-cover{transform:none}.portfolio-visual.is-revealed .portfolio-reveal-cover{transform:translateX(102%)}}
 @media(prefers-reduced-motion:reduce){.portfolio-reveal-cover:after,.reveal-action i{animation:none}.portfolio-reveal-cover{transition:none}}
-.custom-cursor{position:fixed;left:0;top:0;width:17px;height:17px;border:1px solid var(--teal);border-radius:50%;pointer-events:none;z-index:300;transform:translate3d(-100px,-100px,0);transition:width .35s cubic-bezier(.2,.75,.25,1),height .35s cubic-bezier(.2,.75,.25,1),border-color .35s ease,background .35s ease;mix-blend-mode:screen}
-.custom-cursor:after{content:"";position:absolute;left:50%;top:50%;width:4px;height:4px;border-radius:50%;background:var(--teal);transform:translate(-50%,-50%);box-shadow:0 0 14px 3px rgba(0,217,181,.45)}
-.custom-cursor.is-hovering{width:42px;height:42px;background:rgba(0,217,181,.08);border-color:rgba(0,217,181,.8)}
-.custom-cursor-enabled,.custom-cursor-enabled a,.custom-cursor-enabled button,.custom-cursor-enabled select{cursor:none}
-.button.magnetic-active,.nav-cta.magnetic-active{transform:translate3d(var(--mag-x),var(--mag-y),0) translateY(-2px)}
-.hero-art{transform:translate3d(0,var(--hero-scroll,0px),0);transition:transform .16s linear}
-.hero-art .code-window{transform:perspective(1100px) rotateX(var(--hero-rotate-x,0deg)) rotateY(var(--hero-rotate-y,0deg)) rotateZ(-5deg);transition:transform .3s cubic-bezier(.2,.75,.25,1)}
-.hero-art .code-window:hover{box-shadow:0 35px 100px rgba(0,0,0,.52),0 0 42px rgba(91,127,255,.09)}
-@media(max-width:800px){.custom-cursor{display:none}.custom-cursor-enabled,.custom-cursor-enabled a,.custom-cursor-enabled button,.custom-cursor-enabled select{cursor:auto}.hero-art{transform:none}.hero-art .code-window{transform:rotate(-5deg)}}
-@media(prefers-reduced-motion:reduce){.custom-cursor{display:none}.hero-art,.hero-art .code-window{transform:none!important;transition:none}.button.magnetic-active,.nav-cta.magnetic-active{transform:none}}
